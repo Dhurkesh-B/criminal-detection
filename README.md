@@ -18,8 +18,11 @@ This project is a facial recognition system designed for real-time suspect detec
 - ReportLab
 - Geocoder
 - smtplib and email
-##Sample image
-  ![Sample recognition](sample.jpg)
+
+## Sample Image
+
+![Sample recognition](sample.jpg)
+
 ## Usage
 
 1. Clone the repository.
@@ -27,4 +30,3 @@ This project is a facial recognition system designed for real-time suspect detec
 3. Run the main script and follow the prompts to add new suspects or run the recognition program.
 
 This project offers a comprehensive solution for enhancing security and law enforcement operations through efficient suspect detection and reporting.
-
