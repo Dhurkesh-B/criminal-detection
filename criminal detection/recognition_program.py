@@ -89,7 +89,7 @@ def run_recognition_program(info_data):
             return "Location not available"
 
     def sendMail(pdf_name, useremail):
-        sender_email = 'dhurkeshmyself@gmail.com'  # Replace with your email address
+        sender_email = 'your_gmail@gmail.com'  # Replace with your email address
         msg = MIMEMultipart()
         msg['From'] = sender_email
         msg['To'] = useremail
@@ -108,7 +108,7 @@ def run_recognition_program(info_data):
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login(sender_email, 'iifx ufam jpzm orzz')  # Replace with your Gmail App Password
+        server.login(sender_email, 'your_gmail_passkey')  # Replace with your Gmail App Password
         server.send_message(msg)
         server.quit()
 
