@@ -228,7 +228,7 @@ def get_current_location():
 
 
 def sendMail(pdf_name, useremail):
-    sender_email = 'dhurkeshmyself@gmail.com'
+    sender_email = 'user_gmail@gmail.com' #Replace it with your gmail
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = useremail
