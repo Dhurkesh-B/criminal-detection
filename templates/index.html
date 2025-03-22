@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Suspect</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        form { width: 50%; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        input, button, select { width: 100%; padding: 10px; margin: 10px 0; }
+        #videoInput, #photoInputs { display: none; }
+    </style>
+</head>
+<body>
+    <h2>Add a New Suspect</h2>
+    <form id="suspectForm" enctype="multipart/form-data">
+        <input type="text" name="namekey" placeholder="Suspect ID (e.g., JohnDoe)" required>
+        <input type="text" name="full_name" placeholder="Full Name" required>
+        <input type="number" name="age" placeholder="Age" required>
+        <input type="text" name="complaint" placeholder="Complaint" required>
+        <input type="text" name="nationality" placeholder="Nationality" required>
+        
+        <select name="input_method" id="inputMethod" required>
+            <option value="" disabled selected>Select input method</option>
+            <option value="video">Upload Video</option>
+            <option value="photo">Upload 3 Photos</option>
+            <option value="live">Capture Live Photo</option>
+        </select>
+        
+        <input type="file" name="video" id="videoInput" accept="video/*">
+        <div id="photoInputs">
+            <input type="file" name="photo1" accept="image/*" class="photoInput">
+            <input type="file" name="photo2" accept="image/*" class="photoInput">
+            <input type="file" name="photo3" accept="image/*" class="photoInput">
+        </div>
+        
+        <button type="submit">Add Suspect</button>
+    </form>
+
+    <script>
+        const inputMethod = document.getElementById('inputMethod');
+        const videoInput = document.getElementById('videoInput');
+        const photoInputs = document.getElementById('photoInputs');
+        const photoInputFields = document.querySelectorAll('.photoInput');
+
+        inputMethod.addEventListener('change', function() {
+            videoInput.style.display = this.value === 'video' ? 'block' : 'none';
+            photoInputs.style.display = this.value === 'photo' ? 'block' : 'none';
+        });
+
+        document.getElementById('suspectForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const inputMethodValue = inputMethod.value;
+
+            // Validate photo inputs
+            if (inputMethodValue === 'photo') {
+                let photoCount = 0;
+                photoInputFields.forEach(input => {
+                    if (input.files.length > 0) photoCount++;
+                });
+                if (photoCount !== 3) {
+                    alert('Please upload exactly 3 photos.');
+                    return;
+                }
+            }
+
+            fetch('http://localhost:5000/add_suspect', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
