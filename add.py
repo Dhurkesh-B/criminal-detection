@@ -122,24 +122,32 @@ def add_suspect():
         'complaint': request.form.get('complaint'),
         'Nationality': request.form.get('nationality')
     }
-    input_method = request.form.get('input_method')
+    input_method = "photo"
 
     # Save suspect info
     save_to_json(suspect_data, criminal_info_folder, person_namekey)
 
     # Process based on input method
-    if input_method == 'video' and 'video' in request.files:
-        video_file = request.files['video']
-        captured_images = process_video(person_namekey, video_file)
-    elif input_method == 'photo':
-        photo_files = [request.files.get(f'photo{i+1}') for i in range(3)]
-        if None in photo_files or any(not f for f in photo_files):
-            return jsonify({"message": "Please upload exactly 3 photos"}), 400
-        captured_images = process_photos(person_namekey, photo_files)
-    elif input_method == 'live':
-        captured_images = capture_images(person_namekey)
+    if input_method == 'photo':
+        # Get all three photos explicitly
+        photo1 = request.files.get('photo1')
+        photo2 = request.files.get('photo2')
+        photo3 = request.files.get('photo3')
+
+        # Validate all photos are present and have files
+        if not all([photo1, photo2, photo3]):
+            return jsonify({"message": "Missing one or more photo uploads"}), 400
+            
+        if any(photo.filename == '' for photo in [photo1, photo2, photo3]):
+            return jsonify({"message": "One or more selected files are invalid"}), 400
+
+        # Process the valid photos
+        try:
+            captured_images = process_photos(person_namekey, [photo1, photo2, photo3])
+        except Exception as e:
+            return jsonify({"message": f"Error processing photos: {str(e)}"}), 500
     else:
-        return jsonify({"message": "Invalid input method or missing file"}), 400
+        return jsonify({"message": "Invalid input method specified"}), 400
 
     # Process and store face encodings
     if process_and_store_encodings(person_namekey, captured_images):

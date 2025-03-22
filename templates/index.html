@@ -1,78 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Suspect</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        form { width: 50%; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        input, button, select { width: 100%; padding: 10px; margin: 10px 0; }
-        #videoInput, #photoInputs { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Login Form</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+    :root {
+      --white-color: hsl(0,0%,100%);
+      --black-color: hsl(0, 0% , 0%);
+      --body-font: "Poppins", sans-serif; 
+      --h1-font-size: 1.75rem;
+      --normal-font-size: 1rem;
+      --small-font-size: .813rem;
+      --font-medium: 500; 
+    }
+
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body, input, button {
+      font-size: var(--normal-font-size);
+      font-family: var(--body-font);
+    }
+
+    body {
+      color: var(--white-color);
+      background-color: black;
+    }
+
+    input, button {
+      border: none;
+      outline: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .login {
+      position: relative;
+      height: 100vh;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login__form {
+      position: relative;
+      background-color: hsla(0, 0%, 10%, 0.1);
+      border: 2px solid var(--white-color);
+      padding: 2.5rem 2rem;
+      border-radius: 1rem;
+      backdrop-filter: blur(8px);
+      width: 400px;
+    }
+
+    .login__title {
+      text-align: center;
+      font-size: var(--h1-font-size);
+      font-weight: var(--font-medium);
+      margin-bottom: 2rem;
+    }
+
+    .login__box {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .login__box-input {
+      position: relative;
+      width: 100%;
+    }
+
+    .login__input {
+      width: 100%;
+      padding: 12px 10px;
+      background: none;
+      color: var(--white-color);
+      font-size: var(--normal-font-size);
+      border-bottom: 2px solid var(--white-color);
+    }
+
+    .login__label {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: 0.3s ease;
+      color: gray;
+      pointer-events: none;
+    }
+
+    .login__input:focus + .login__label,
+    .login__input:not(:placeholder-shown) + .login__label {
+      top: 5px;
+      font-size: 12px;
+      color: #007bff;
+    }
+
+    .login__button {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      background-color: var(--white-color);
+      font-weight: var(--font-medium);
+      cursor: pointer;
+      margin-bottom: 1rem;
+      color: var(--black-color);
+    }
+
+    .login__register {
+      text-align: center;
+    }
+
+    .login__register a {
+      color: var(--white-color);
+      font-weight: var(--font-medium);
+    }
+
+    .login__register a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body>
-    <h2>Add a New Suspect</h2>
-    <form id="suspectForm" enctype="multipart/form-data">
-        <input type="text" name="namekey" placeholder="Suspect ID (e.g., JohnDoe)" required>
-        <input type="text" name="full_name" placeholder="Full Name" required>
-        <input type="number" name="age" placeholder="Age" required>
-        <input type="text" name="complaint" placeholder="Complaint" required>
-        <input type="text" name="nationality" placeholder="Nationality" required>
-        
-        <select name="input_method" id="inputMethod" required>
-            <option value="" disabled selected>Select input method</option>
-            <option value="video">Upload Video</option>
-            <option value="photo">Upload 3 Photos</option>
-            <option value="live">Capture Live Photo</option>
-        </select>
-        
-        <input type="file" name="video" id="videoInput" accept="video/*">
-        <div id="photoInputs">
-            <input type="file" name="photo1" accept="image/*" class="photoInput">
-            <input type="file" name="photo2" accept="image/*" class="photoInput">
-            <input type="file" name="photo3" accept="image/*" class="photoInput">
+<body style="background-color: #000; font-family: Arial; box-sizing: border-box;">
+
+  <div style="align-items: center; display: flex; height: 100vh; position: relative; justify-content: center; z-index: -1;">
+    <div style="color: #fff; font-size: 100px; font-weight: 700; padding: 0 20px; position: absolute; text-align: center; text-transform: uppercase;" aria-hidden="true">Thutukudi Police</div>
+    <img style="border-radius: 20px; position: fixed; transform: rotate(-15deg); width: 450px;" class="hero-banner__image" src="https://as1.ftcdn.net/v2/jpg/02/25/08/08/1000_F_225080882_qmCXbWRtDJ7J7uoNRMhaZujWWmEB4bKk.jpg"/>
+    <h1 style="color: transparent; -webkit-text-stroke: 2px white; text-stroke: 2px white; font-size: 100px; font-weight: 700; padding: 0 20px; position: absolute; text-align: center; text-transform: uppercase;">Thutukudi Police</h1>
+  </div>
+
+  <div class="login">
+    <form id="suspectForm" class="login__form" enctype="multipart/form-data">
+      <h1 class="login__title">Add a New Suspect</h1>
+
+      <!-- Suspect ID -->
+      <div class="login__box">
+        <div class="login__box-input">
+          <input type="text" required class="login__input" name="namekey" placeholder=" ">
+          <label class="login__label">Suspect ID (e.g., JohnDoe)</label>
         </div>
+      </div>
+
+      <!-- Full Name -->
+      <div class="login__box">
+        <div class="login__box-input">
+          <input type="text" required class="login__input" name="full_name" placeholder=" ">
+          <label class="login__label">Full Name</label>
+        </div>
+      </div>
+
+      <!-- Age -->
+      <div class="login__box">
+        <div class="login__box-input">
+          <input type="number" required class="login__input" name="age" placeholder=" ">
+          <label class="login__label">Age</label>
+        </div>
+      </div>
+
+      <!-- Complaint -->
+      <div class="login__box">
+        <div class="login__box-input">
+          <input type="text" required class="login__input" name="complaint" placeholder=" ">
+          <label class="login__label">Complaint</label>
+        </div>
+      </div>
+
+      <!-- Nationality -->
+      <div class="login__box">
+        <div class="login__box-input">
+          <input type="text" required class="login__input" name="nationality" placeholder=" ">
+          <label class="login__label">Nationality</label>
+        </div>
+      </div>
+
+      <!-- Photos -->
+      <div class="login__box">
+        <div class="login__box-input">
+          <label>Upload Criminal Photos</label>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <div class="login__box-input">
+              <input type="file" required class="login__input" name="photo1" accept="image/*">
+            </div>
+            <div class="login__box-input">
+              <input type="file" required class="login__input" name="photo2" accept="image/*">
+            </div>
+            <div class="login__box-input">
+              <input type="file" required class="login__input" name="photo3" accept="image/*">
+            </div>
+          </div>
+          
+          <style>
+          .login__box-input.green-border input {
+              border-bottom: 2px solid #4CAF50 !important;
+              transition: border-color 0.3s ease;
+          }
+          
+          .login__box-input.green-border::after {
+              content: "✓ Selected";
+              color: #4CAF50;
+              font-size: 0.8em;
+              position: absolute;
+              bottom: -20px;
+              left: 0;
+          }
+          </style>
+          
+          <script>
+          document.querySelectorAll('input[type="file"]').forEach(input => {
+              input.addEventListener('change', function() {
+                  const parentDiv = this.closest('.login__box-input');
+                  if (this.files && this.files.length > 0) {
+                      parentDiv.classList.add('green-border');
+                  } else {
+                      parentDiv.classList.remove('green-border');
+                  }
+              });
+          });
+          </script>
         
-        <button type="submit">Add Suspect</button>
+        </div>
+      </div>
+
+      <button type="submit" class="login__button">Register</button>
     </form>
+  </div>
 
-    <script>
-        const inputMethod = document.getElementById('inputMethod');
-        const videoInput = document.getElementById('videoInput');
-        const photoInputs = document.getElementById('photoInputs');
-        const photoInputFields = document.querySelectorAll('.photoInput');
+  <script>  
+    document.getElementById('suspectForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const photoInputs = document.querySelectorAll('input[type="file"]');
 
-        inputMethod.addEventListener('change', function() {
-            videoInput.style.display = this.value === 'video' ? 'block' : 'none';
-            photoInputs.style.display = this.value === 'photo' ? 'block' : 'none';
+        // Validate exactly 3 photos
+        let valid = true;
+        photoInputs.forEach(input => {
+            if (!input.files.length) valid = false;
         });
+        
+        if (!valid) {
+            alert('Please upload exactly 3 photos.');
+            return;
+        }
 
-        document.getElementById('suspectForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const inputMethodValue = inputMethod.value;
-
-            // Validate photo inputs
-            if (inputMethodValue === 'photo') {
-                let photoCount = 0;
-                photoInputFields.forEach(input => {
-                    if (input.files.length > 0) photoCount++;
-                });
-                if (photoCount !== 3) {
-                    alert('Please upload exactly 3 photos.');
-                    return;
-                }
-            }
-
-            fetch('http://localhost:5000/add_suspect', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => alert(data.message))
-            .catch(error => console.error('Error:', error));
-        });
-    </script>
+        fetch('http://localhost:5000/add_suspect', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error('Error:', error));
+    });
+</script>
 </body>
 </html>
